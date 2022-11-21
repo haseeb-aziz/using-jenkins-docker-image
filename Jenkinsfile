@@ -24,8 +24,8 @@ node
         //       fi'''
         def containerExists = sh(script: "docker ps -a -f name=html_docker_jenkins_ci_cd", returnStdout: true) 
 
-        //if(!containerExists){
-            sh 'docker rmi -f html-docker-jenkins-ci-cd'
+        ///if(!containerExists){
+           sh 'docker rmi -f html-docker-jenkins-ci-cd'
            sh 'docker rm -f html_docker_jenkins_ci_cd'
             //sh 'docker stop html_docker_jenkins_ci_cd'
             //sh 'docker rm html_docker_jenkins_ci_cd'
