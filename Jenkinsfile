@@ -31,9 +31,9 @@ node
         //         else
         //         docker run --name html_docker_jenkins_ci_cd -p 8008:80 -d html-docker-jenkins-ci-cd
         //       fi'''
-        def containerExists = sh(script: "docker ps -a -f name=html_docker_jenkins_ci_cd", returnStdout: true) 
+        def containerExists = sh(script: "docker ps -a -f name=webapp", returnStdout: true) 
 
-        if(!containerExists){
+        if(containerExists){
             
     
             
