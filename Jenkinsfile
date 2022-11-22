@@ -33,7 +33,7 @@ node
         //       fi'''
         def containerExists = sh(script: "docker ps -a -f name=html_docker_jenkins_ci_cd", returnStdout: true) 
 
-        if(containerExists){
+        if(!containerExists){
             
     
             
