@@ -24,11 +24,15 @@ node
         //       fi'''
         def containerExists = sh(script: "docker ps -a -f name=html_docker_jenkins_ci_cd", returnStdout: true) 
 
-        app="webapp"
-        if docker ps | awk -v app="$app" 'NR > 1 && $NF == app{ret=1; exit} END{exit !ret}'; 
-        then
-            docker stop "$app" && docker rm -f "$app"
-            sh 'docker run --name webapp -p 8008:80 -d html-docker-jenkins-ci-cd'
+            result=$( sudo docker images -q webapp )
+
+            if [[ -n "$result" ]]; then
+              echo 'Container image exists'
+            else
+              echo 'No such container image'
+              sh 'docker run --name webapp -p 8008:80 -d html-docker-jenkins-ci-cd'
+            fi
+            
         
         
 //         if[docker stop webapp || true && docker rm webapp || true]
