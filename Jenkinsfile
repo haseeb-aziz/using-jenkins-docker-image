@@ -9,7 +9,8 @@ node
 
     stage('Build image') {
 
-
+        def imageExists = sh(script: "docker images -a webapp-image", returnStdout: true)
+        sh 'docker rmi webapp-image'
         app = docker.build("webapp-image")
       
     }
@@ -32,7 +33,7 @@ node
         //         docker run --name html_docker_jenkins_ci_cd -p 8008:80 -d html-docker-jenkins-ci-cd
         ///       fi'''
         def containerExists = sh(script: "docker ps -a -f name=webapp", returnStdout: true) 
-        def imageExists = sh(script: "docker images -a webapp-image", returnStdout: true)
+        
 
 
         if(containerExists){
