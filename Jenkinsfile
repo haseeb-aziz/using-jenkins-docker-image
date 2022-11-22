@@ -47,7 +47,7 @@ node
              
             sh 'docker stop webapp'
             sh 'docker rm -f webapp'
-            sh 'docker rmi webapp-image'
+            //sh 'docker rmi webapp-image'
             sh 'docker run --name webapp -p 8008:80 -d html-docker-jenkins-ci-cd'
             
             //sh 'docker stop html_docker_jenkins_ci_cd'
