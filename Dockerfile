@@ -1,3 +1,3 @@
 FROM httpd
-COPY . /usr/local/apache2/htdocs/
+COPY ./public-htm /usr/local/apache2/htdocs/
 
