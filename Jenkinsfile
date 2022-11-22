@@ -10,11 +10,20 @@ node
     stage('Build image') {
 
 
-        app = docker.build("html-docker-jenkins-ci-cd")
+        app = docker.build("webapp-image")
     }
     
     stage('Run Container') {
    
+//         script {
+//         def imageExists = sh(script: "docker images -q webapp-image", returnStdout: true) == 0
+
+//     if(imageExists){
+//         // build the image
+//     }
+// }
+        
+        
         // sh '''if [ $( docker ps -a | grep html_docker_jenkins_ci_cd ) ]; then
         //         docker stop html_docker_jenkins_ci_cd
         //         docker rm html_docker_jenkins_ci_cd
@@ -24,14 +33,9 @@ node
         //       fi'''
         def containerExists = sh(script: "docker ps -a -f name=html_docker_jenkins_ci_cd", returnStdout: true) 
 
-            result=$( sudo docker images -q webapp )
-
-            if [[ -n "$result" ]]; then
-              echo 'Container image exists'
-            else
-              echo 'No such container image'
-              sh 'docker run --name webapp -p 8008:80 -d html-docker-jenkins-ci-cd'
-            fi
+        if(containerExists){
+            
+    
             
         
         
@@ -39,10 +43,14 @@ node
         
 //            //sh 'docker rmi -f html-docker-jenkins-ci-cd'
 //            sh 'docker rm -f webapp &>/dev/null && echo 'Removed old container''
-//             //sh 'docker rm -f html_docker_jenkins_ci_cd'
+             
+            sh 'docker stop webapp'
+            sh 'docker rm -f webapp'
+            sh 'docker run --name webapp -p 8008:80 -d html-docker-jenkins-ci-cd'
+            
             //sh 'docker stop html_docker_jenkins_ci_cd'
             //sh 'docker rm html_docker_jenkins_ci_cd'
-            
+        }
 
          else
              sh 'docker run --name webapp -p 8008:80 -d html-docker-jenkins-ci-cd'
