@@ -52,9 +52,8 @@ node
             //sh 'docker rm html_docker_jenkins_ci_cd'
         }
 
-         else
-             sh 'docker run --name webapp -p 8008:80 -d html-docker-jenkins-ci-cd'
-        fi   
+        else
+            sh 'docker run --name webapp -p 8008:80 -d html-docker-jenkins-ci-cd'   
     }
   
 }
