@@ -16,8 +16,7 @@ node
     stage('Run Container') {
    
 //         script {
-//         def imageExists = sh(script: "docker images -q webapp-image", returnStdout: true) == 0
-
+         
 //     if(imageExists){
 //         // build the image
 //     }
@@ -32,8 +31,10 @@ node
         //         docker run --name html_docker_jenkins_ci_cd -p 8008:80 -d html-docker-jenkins-ci-cd
         //       fi'''
         def containerExists = sh(script: "docker ps -a -f name=webapp", returnStdout: true) 
+        def imageExists = sh(script: "docker images -q webapp-image", returnStdout: true) == 0
 
-        if(containerExists){
+
+        if(containerExists & imageExists){
             
     
             
@@ -46,6 +47,7 @@ node
              
             sh 'docker stop webapp'
             sh 'docker rm -f webapp'
+            sh 'docker rmi webapp-image'
             sh 'docker run --name webapp -p 8008:80 -d html-docker-jenkins-ci-cd'
             
             //sh 'docker stop html_docker_jenkins_ci_cd'
@@ -53,7 +55,7 @@ node
         }
 
         else
-            sh 'docker run --name webapp -p 8008:80 -d html-docker-jenkins-ci-cd'   
+            sh 'docker run --name webapp -p 8008:80 -d webapp-image'   
     }
   
 }
