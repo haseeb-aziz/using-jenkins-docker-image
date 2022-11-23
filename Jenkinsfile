@@ -10,8 +10,14 @@ node
     stage('Build image') {
 
         //def imageExists = sh(script: "docker images -a webapp-image", returnStdout: true)
-        //sh 'docker rmi webapp-image'
+        if(containerExists){
+        
+        sh 'docker rmi webapp-image'
         app = locker.build("webapp-image")
+        }
+        else{
+           app = locker.build("webapp-image") 
+        }
       
     }
     
