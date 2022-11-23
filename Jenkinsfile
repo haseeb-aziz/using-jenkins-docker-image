@@ -2,17 +2,17 @@ node
 {
     def app
 
-    stage('Clone repository') {
+    stage('Checkout code') {
 
         checkout scm
     }
 
-    stage('Build image') {
+    stage('Build Docker-image') {
 
         def imageExists = sh(script: "docker images -a webapp-image", returnStdout: false)
         if(imageExists){
         
-        sh 'docker rmi webapp-image'
+        sh 'docker rmi webapp-image'app = locker.build("webapp-image")
         app = docker.build("webapp-image")
         }
         else{
@@ -21,7 +21,7 @@ node
       
     }
     
-    stage('Run Container') {
+    stage('Deploy Webapp') {
    
 //         script {
          
