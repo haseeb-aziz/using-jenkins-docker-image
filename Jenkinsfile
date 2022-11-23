@@ -13,10 +13,10 @@ node
         if(containerExists){
         
         sh 'docker rmi webapp-image'
-        app = locker.build("webapp-image")
+        app = docker.build("webapp-image")
         }
         else{
-           app = locker.build("webapp-image") 
+           app = docker.build("webapp-image") 
         }
       
     }
