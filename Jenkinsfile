@@ -12,7 +12,7 @@ node
         def imageExists = sh(script: "docker images -a webapp-image", returnStdout: false)
         if(imageExists){
         
-        sh 'docker rmi webapp-image'app = locker.build("webapp-image")
+        sh 'docker rmi webapp-image'
         app = docker.build("webapp-image")
         }
         else{
