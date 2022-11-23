@@ -9,8 +9,8 @@ node
 
     stage('Build image') {
 
-        //def imageExists = sh(script: "docker images -a webapp-image", returnStdout: true)
-        if(containerExists){
+        def imageExists = sh(script: "docker images -a webapp-image", returnStdout: true)
+        if(imageExists){
         
         sh 'docker rmi webapp-image'
         app = docker.build("webapp-image")
